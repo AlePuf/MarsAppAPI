@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {JSONPhoto} from '../Models/interfaces';
-import {check_valid_rover} from '../Middleware/check_valid_rover';
+import {check_valid_rover} from '../Middleware/check_valid_rover.middleware';
 import {API_BASE, API_KEY} from '../Routes/server'
 
 export async function photos(req: any, res: any) {
