@@ -20,23 +20,21 @@ export function photos(api_url: string, req: any, res: any) {
     if (camera) {
         api_url += `&camera=${req.query.camera}`;
     }
-    if (paginationStart && paginationEnd) {
-        if (typeof paginationStart == "string" && typeof paginationEnd == "string") {
-            let response: Array<JSONPhoto> = [];
-            let promiseArray: any[] = [];
-            for (let i = parseInt(paginationStart); i <= parseInt(paginationEnd); i++) {
-                let url = api_url + `&page=${i}`;
-                promiseArray.push(axios.get(url));
-            }
-            Promise.all(promiseArray).then(resp => {
-                for (let i = 0; i < promiseArray.length; i++) {
-                    response.push(resp[i].data.photos);
-                }
-                res.send(response);
-            }).catch(() => {
-                res.send("Error: invalid parameters");
-            });
+    if (paginationStart && paginationEnd && typeof paginationStart == "string" && typeof paginationEnd == "string") {
+        let response: Array<JSONPhoto> = [];
+        let promiseArray: any[] = [];
+        for (let i = parseInt(paginationStart); i <= parseInt(paginationEnd); i++) {
+            let url = api_url + `&page=${i}`;
+            promiseArray.push(axios.get(url));
         }
+        Promise.all(promiseArray).then(resp => {
+            for (let i = 0; i < promiseArray.length; i++) {
+                response.push(resp[i].data.photos);
+            }
+            res.send(response);
+        }).catch(() => {
+            res.send("Error: invalid parameters");
+        });
     } else {
         axios.get(api_url).then(resp => {
             res.send(resp.data.photos);
