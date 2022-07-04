@@ -1,7 +1,15 @@
 import axios from 'axios';
-import {JSONPhoto} from './interfaces';
+import {JSONPhoto} from '../Models/interfaces';
+import {check_valid_rover} from '../Middleware/check_valid_rover';
+import {API_BASE, API_KEY} from '../Routes/server'
 
-export function photos(api_url: string, req: any, res: any) {
+export async function photos(req: any, res: any) {
+    let valid = await check_valid_rover(req.params.rover);
+    if (!valid) {
+        res.send("Error: Invalid rover!");
+        return;
+    }
+    let api_url = `${API_BASE}/rovers/${req.params.rover}/photos?sol=${req.params.sol}&api_key=${API_KEY}`;
     let page = req.query.page;
     let camera = req.query.camera;
     let paginationStart = req.query.paginationStart;
