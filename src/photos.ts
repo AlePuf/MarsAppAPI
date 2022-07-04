@@ -22,7 +22,7 @@ export function photos(api_url: string, req: any, res: any) {
     }
     if (paginationStart && paginationEnd) {
         if (typeof paginationStart == "string" && typeof paginationEnd == "string") {
-            let response = '';
+            let response: Array<JSONPhoto> = [];
             let promiseArray: any[] = [];
             for (let i = parseInt(paginationStart); i <= parseInt(paginationEnd); i++) {
                 let url = api_url + `&page=${i}`;
@@ -30,26 +30,18 @@ export function photos(api_url: string, req: any, res: any) {
             }
             Promise.all(promiseArray).then(resp => {
                 for (let i = 0; i < promiseArray.length; i++) {
-                    let data = resp[i].data.photos;
-                    data.forEach(function (p: JSONPhoto) {
-                        response += `Photo ID: ${p.id}<br>Camera: ${p.camera.name}<br><img src="${p.img_src}"><br><br>`;
-                    });
+                    response.push(resp[i].data.photos);
                 }
                 res.send(response);
             }).catch(() => {
-                console.log("error");
+                res.send("Error: invalid parameters");
             });
         }
     } else {
         axios.get(api_url).then(resp => {
-            let data = resp.data.photos;
-            let response = '';
-            data.forEach(function (p: JSONPhoto) {
-                response += `Photo ID: ${p.id}<br>Camera: ${p.camera.name}<br><img src="${p.img_src}"><br><br>`;
-            });
-            res.send(response);
+            res.send(resp.data.photos);
         }).catch(() => {
-            console.log("error");
+            res.send("Error: invalid parameters");
         });
     }
 }

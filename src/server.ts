@@ -6,8 +6,6 @@ const app = express();
 const port = 8000;
 const api_key = 'M3d4mWdNB9BtMBlncFSJ6BBy9hdlGmpOll5BJlTf';
 const api_base = 'https://api.nasa.gov/mars-photos/api/v1';
-const rover = 'curiosity';
-const camera_type = 'NAVCAM';
 
 app.use(express.json());
 const router = express.Router();
