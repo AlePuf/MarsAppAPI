@@ -2,10 +2,10 @@
   "name": "marsappapi",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && node dist/index.js"
+    "start": "nodemon src/Routes/server.ts"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,16 @@
   },
   "homepage": "https://github.com/AlePuf/MarsAppAPI#readme",
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/node": "^18.0.0",
-    "typescript": "^4.7.4"
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.13",
+    "axios": "^0.27.2",
+    "express": "^4.18.1",
+    "node-fetch": "^3.2.6",
+    "nodemon": "^2.0.18",
+    "ts-node": "^10.8.1"
   }
 }
