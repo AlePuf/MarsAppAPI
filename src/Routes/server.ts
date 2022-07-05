@@ -4,8 +4,11 @@ import {photos} from '../Controllers/photos.controllers';
 
 const app = express();
 const port = 8000;
-export const API_KEY = 'M3d4mWdNB9BtMBlncFSJ6BBy9hdlGmpOll5BJlTf';
+// export const API_KEY = 'M3d4mWdNB9BtMBlncFSJ6BBy9hdlGmpOll5BJlTf';
+export const API_KEY = '6jOXBKUU8ehurSKNEVzTeukiXemQOAAqRtpetwHs';
 export const API_BASE = 'https://api.nasa.gov/mars-photos/api/v1';
+const cors = require('cors');
+app.use(cors());
 
 app.use(express.json());
 const router = express.Router();
